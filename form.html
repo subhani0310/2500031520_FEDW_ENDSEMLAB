@@ -1,0 +1,59 @@
+
+import React, { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [msg, setMsg] = useState("");
+
+  const [user, setUser] = useState(null);
+
+  function register(e) {
+    e.preventDefault();
+    setUser({ name, email, pass });
+    setMsg("Registration Successful!");
+  }
+
+  function login(e) {
+    e.preventDefault();
+    if (user && email === user.email && pass === user.pass)
+      setMsg("Login Successful!");
+    else
+      setMsg("Invalid Email or Password!");
+  }
+
+  return (
+    <div>
+      <h2>Registration Form</h2>
+      <form onSubmit={register}>
+        <input placeholder="Name"
+          onChange={e => setName(e.target.value)} required />
+        <input placeholder="Email"
+          onChange={e => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password"
+          onChange={e => setPass(e.target.value)} required />
+        <button>Register</button>
+      </form>
+
+      <h2>Login Form</h2>
+      <form onSubmit={login}>
+        <input placeholder="Email"
+          onChange={e => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password"
+          onChange={e => setPass(e.target.value)} required />
+        <button>Login</button>
+      </form>
+
+      <h3>{msg}</h3>
+
+      {user && <div>
+        <h3>Registered Details</h3>
+        <p>Name: {user.name}</p>
+        <p>Email: {user.email}</p>
+      </div>}
+    </div>
+  );
+}
+
+export default App;
